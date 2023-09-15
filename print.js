@@ -1,15 +1,39 @@
-function uploadPDF() {
-    const pdfInput = document.getElementById('pdfInput');
-    const file = pdfInput.files[0];
+const express = require('express');
+const multer = require('multer');
+const app = express();
+const upload = multer({ dest: 'uploads/' });
 
-    if (file) {
-        // Hier kannst du den Code für das Hochladen der PDF-Datei implementieren.
-        // Du könntest beispielsweise eine AJAX-Anfrage an einen Server senden,
-        // der die Datei verarbeitet und speichert.
+app.use(express.static('public'));
 
-        // Hier ist ein einfaches Beispiel, wie du den Dateinamen anzeigen kannst:
-        alert('Du hast die PDF-Datei ' + file.name + ' ausgewählt.');
-    } else {
-        alert('Bitte wähle zuerst eine PDF-Datei aus.');
-    }
-}
+// GET route for the upload page
+app.get('', (req, res) => {
+  // Render your HTML upload form here
+  res.send('Upload page');
+});
+
+// POST route for handling the file upload
+app.post('', upload.single('pdfFile'), (req, res) => {
+  const { color, duplex } = req.body;
+  const { path, originalname } = req.file;
+
+  let destinationFolder = 'default';
+  if (color && duplex) {
+    destinationFolder = 'color-duplex';
+  } else if (color) {
+    destinationFolder = 'color';
+  } else if (duplex) {
+    destinationFolder = 'duplex';
+  }
+
+  // Logic to move the uploaded file to the appropriate folder
+  // You can use the 'fs' module to accomplish this
+  const fs = require('fs');
+  const newPath = `uploads/${destinationFolder}/${originalname}`;
+  fs.renameSync(path, newPath);
+  alert('test');
+  res.send('File uploaded successfully!');
+});
+
+app.listen(5000, () => {
+  console.log('Server started on port 5000');
+});

@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>File Upload</title>
+  <title>Datei-Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="file"], input[type="checkbox"] {
+      margin-bottom: 15px;
+    }
+    input[type="submit"] {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h1>File Upload</h1>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <label for="pdfFile">Select PDF File:</label>
-    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required><br>
+  <h1>Datei-Upload</h1>
+  <div class="container">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <label for="pdfFile">PDF-Datei auswählen:</label>
+      <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required><br>
 
-    <label for="color">Color:</label>
-    <input type="checkbox" id="color" name="color" value="true">
+      <label for="color">Farbe:</label>
+      <input type="checkbox" id="color" name="color" value="true">
 
-    <label for="duplex">Duplex:</label>
-    <input type="checkbox" id="duplex" name="duplex" value="true"><br>
+      <label for="duplex">Duplex:</label>
+      <input type="checkbox" id="duplex" name="duplex" value="true"><br>
 
-    <input type="submit" value="Upload">
-  </form>
+      <input type="submit" value="Hochladen">
+    </form>
+  </div>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload</title>
+</head>
+<body>
+  <h1>File Upload</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="pdfFile">Select PDF File:</label>
+    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required><br>
+
+    <label for="color">Color:</label>
+    <input type="checkbox" id="color" name="color" value="true">
+
+    <label for="duplex">Duplex:</label>
+    <input type="checkbox" id="duplex" name="duplex" value="true"><br>
+
+    <input type="submit" value="Upload">
+  </form>
+</body>
+</html>

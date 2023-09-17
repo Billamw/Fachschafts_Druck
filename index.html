@@ -4,7 +4,7 @@
   <title>Datei-Upload</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
       background-color: #f4f4f4;
       margin: 0;
       padding: 0;
@@ -41,20 +41,29 @@
     input[type="submit"]:hover {
       background-color: #0056b3;
     }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
   <h1>Datei-Upload</h1>
   <div class="container">
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form action="/submit" method="POST" enctype="multipart/form-data">
       <label for="pdfFile">PDF-Datei auswählen:</label>
       <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required><br>
+      
+      <div class="checkbox-container">
+        <input type="checkbox" id="color" name="color" value="true">
+        <label for="color">Farbe</label>
+      </div>
 
-      <label for="color">Farbe:</label>
-      <input type="checkbox" id="color" name="color" value="true">
-
-      <label for="duplex">Duplex:</label>
-      <input type="checkbox" id="duplex" name="duplex" value="true"><br>
+      <div class="checkbox-container">
+        <input type="checkbox" id="duplex" name="duplex" value="true">
+        <label for="duplex">Duplex</label>
+      </div>
 
       <input type="submit" value="Hochladen">
     </form>

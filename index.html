@@ -4,52 +4,64 @@
   <title>Datei-Upload</title>
   <style>
     body {
-      font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
-      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
       margin: 0;
       padding: 0;
     }
     h1 {
-      background-color: #007BFF;
+      background-color: #3498db;
       color: #fff;
       padding: 20px;
       text-align: center;
     }
     .container {
       max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
+      margin: 20px auto;
       background-color: #fff;
+      padding: 20px;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     label {
-      display: block;
-      margin-bottom: 10px;
+      font-weight: bold;
     }
-    input[type="file"], input[type="checkbox"] {
-      margin-bottom: 15px;
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .checkbox-container {
+      margin-top: 10px;
+    }
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
     }
     input[type="submit"] {
-      background-color: #007BFF;
+      background-color: #3498db;
       color: #fff;
-      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      padding: 10px 20px;
+      border-radius: 3px;
       cursor: pointer;
+      margin-top: 10px;
     }
     input[type="submit"]:hover {
-      background-color: #0056b3;
-    }
-
-    .checkbox-container {
-      display: flex;
-      align-items: center;
+      background-color: #258cd1;
     }
   </style>
 </head>
 <body>
-  <h1>Datei-Upload</h1>
+  <h1>PDF-Upload</h1>
   <div class="container">
     <form action="/submit" method="POST" enctype="multipart/form-data">
       <label for="pdfFile">PDF-Datei auswählen:</label>
@@ -64,6 +76,10 @@
         <input type="checkbox" id="duplex" name="duplex" value="true">
         <label for="duplex">Duplex</label>
       </div>
+
+      <!-- New input field for specifying the number of prints -->
+      <label for="numPrints">Anzahl der Ausdrucke:</label>
+      <input type="number" id="numPrints" name="numPrints" min="1" value="1" required><br>
 
       <input type="submit" value="Hochladen">
     </form>

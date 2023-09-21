@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const { exec } = require('child_process');
 const fs = require('fs').promises;
 const app = express();
 
@@ -29,15 +30,44 @@ app.post('/submit', upload.single('pdfFile'), (req, res) => {
   const duplex = req.body.duplex;
 
   let destinationFolder = 'default';
+  let printer = "-default";
+  let isDuplex = false;
   if (color === 'true' && duplex === 'true') {
     destinationFolder = 'color-duplex';
+    isDuplex = true;
+    printer = ' CanoniP4300';
   } else if (color === 'true') {
     destinationFolder = 'color';
+    printer = ' Duplex';
   } else if (duplex === 'true') {
-    destinationFolder = 'duplex';
+    destinationFolder = 'color-duplex';
+    printer = ' CanoniP4300';
+    isDuplex = true;
   }
 
   fs.rename( path.join( req.file.destination, req.file.filename ), path.join( req.file.destination, destinationFolder, "file.pdf" ) );
+  
+  const numPrints = req.body.numPrints;
+
+
+  // Execute the sumatra.exe -print command
+ let printCommand = `SumatraPDF.exe -print-settings "${numPrints}x" -print-to${printer} C:\\print-pdf\\uploads\\${destinationFolder}\\file.pdf`;
+
+  if(isDuplex)
+    printCommand = `SumatraPDF.exe -print-settings "${numPrints}x, duplex" -print-to${printer} C:\\print-pdf\\uploads\\${destinationFolder}\\file.pdf`;
+
+
+
+  exec(printCommand, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing command: ${error.message}`);
+      console.error(`Command stderr: ${stderr}`);
+      return;
+    }
+    console.log(printCommand);
+  });
+
+
 
   // Log or use the data as needed
   console.log(`Color: ${color}, Duplex: ${duplex}`);

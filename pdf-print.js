@@ -20,8 +20,29 @@ const upload = multer({ storage });
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
+
+// Benutzername und Passwort für den Zugriff auf die Seite
+const password = '1234';
+
+// Middleware zur Überprüfung des Benutzernamens und Passworts
+const checkAuthentication = (req, res, next) => {
+  const providedPassword = req.query.password;
+
+  if (providedPassword === password) {
+    // Authentifizierung erfolgreich
+    next();
+  } else {
+    // Authentifizierung fehlgeschlagen
+    res.status(401).send('Ungültige Anmeldeinformationen');
+  }
+};
+
+// Middleware für den Zugriff auf die geschützte Seite
+app.get('/geschuetzte-seite', checkAuthentication, (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'));
+});
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'login.html'));
 });
 
 app.post('/submit', upload.single('pdfFile'), (req, res) => {
